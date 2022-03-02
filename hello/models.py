@@ -36,6 +36,21 @@ def main():
             q8 = Quiz08Rps(1) # 가위 1 바위 2 보 3
             print(q8.game())
 
+        elif menu == '9':
+            q9 = Quiz09GetPrime(int(input('start: ')), int(input('end: '))) # 가위 1 바위 2 보 3
+            print(q9.getPrime())
+            pass
+        elif menu == '10':
+            q10 = Quiz10LeapYear(int(input('year: '))) # 가위 1 바위 2 보 3
+            print(f'{q10.year}년은 {q10.getLeapYear()}')
+            pass
+        elif menu == '11':
+            pass
+        elif menu == '12':
+            pass
+        elif menu == '13':
+            pass
+
 class Quiz01Calculator(object):
 
     def __init__(self, num1, op, num2):
@@ -151,52 +166,52 @@ class Quiz07RandomChoice(object):
         # res = random.choice(self.members)
 
 class Quiz08Rps(object):
-    def __init__(self, user):
+    def __init__(self,user):
         self.user = user
-        self.com = myRandom(1, 3)
-
+        self.com = myRandom(1,3)
 
     def game(self):
-        u = self.user
-        c = self.com
-        # 1 가위 2 바위 3 보
+        p= self.user
+        c= self.com
+        # 1 가위 2 바위 3보자기
         rps = ['가위', '바위', '보']
-        if u == 1:
-            if c == 1:
-                res = f'플레이어: {rps[0]} , 컴퓨터: {rps[0]}, 결과: 무승부'
-            elif c == 2:
-                res = f'플레이어: {rps[0]} , 컴퓨터: {rps[1]}, 결과: 패배'
-            elif c == 3:
-                res = f'플레이어: {rps[0]} , 컴퓨터: {rps[2]}, 결과: 승리'
-        if u == 2:
-            if c == 1:
-                res = '승리'
-            elif c == 2:
-                res = '무승부'
-            elif c == 3:
-                res = '패배'
-        if u == 3:
-            if c == 1:
-                res = '패배'
-            elif c == 2:
-                res = '승리'
-            elif c == 3:
-                res = '무승부'
+        if p==c:
+            res= f'플레이어:{rps[p-1]}, 컴퓨터:{rps[c-1]}, 결과:무승부'
+        elif p-c == 1 or p-c == -2:
+            res= f'플레이어:{rps[p-1]}, 컴퓨터:{rps[c-1]}, 결과:승리'
+        elif p - c == -1 or p-c == 2:
+            res = f'플레이어:{rps[p - 1]}, 컴퓨터:{rps[c - 1]}, 결과:패배'
         else:
-            res = '잘못된 입력값 입니다.'
+            res = '올바른 숫자를 입력 해주세요.'
+        return res
 
         return res
 
 class Quiz09GetPrime(object):
-    def __init__(self):
-        pass
+    def __init__(self, start, end):
+        self.start = start
+        self.end = end
+        self.count = 0
+
+    def getPrime(self):
+        for i in range(self.start, self.end+1):
+            for j in range(2, i+1):
+                if i % j == 0:
+                    self.count += 1
+            if self.count == 1:
+                res = i
+        self.count = 0
+        # 배열에 넣어?????????
 
 class Quiz10LeapYear(object):
-    def __init__(self):
-        pass
+    def __init__(self, year):
+        self.year = year
+
+    def getLeapYear(self):
+        return '윤년' if ((self.year % 4 == 0 and self.year % 100 != 0) or self.year % 400 == 0) else '평년'
 
 class Quiz11NumberGolf(object):
-    def __init__(self):
+    def __init__(self, name, money):
         pass
 
 class Quiz12Lotto(object):
@@ -206,6 +221,7 @@ class Quiz12Lotto(object):
 class Quiz13Bank(object): # 이름, 입금, 출금만 구현
     def __init__(self):
         pass
+
 
 class Quiz14Gugudan(object): # 책받침구구단
     def __init__(self):
