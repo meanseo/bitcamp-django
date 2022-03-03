@@ -24,16 +24,16 @@ class Dataset:
     def fname(self, fname): self._fname = fname
 
     @property
-    def train(self) -> str: return self.train
+    def train(self) -> str: return self._train
 
     @train.setter
     def train(self, train): self._train = train
 
     @property
-    def test(self) -> str: return self.test
+    def test(self) -> str: return self._test
 
     @test.setter
-    def test(self, test): self.test = test
+    def test(self, test): self._test = test
 
     @property
     def id(self) -> str: return self._id
