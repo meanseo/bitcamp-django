@@ -130,23 +130,18 @@ class Quiz08Rps(object):
             res = '잘못된 번호 입니다.'
         return res
 
-        return res
-
 class Quiz09GetPrime(object):
-    def __init__(self, start, end):
-        self.start = start
-        self.end = end
-        self.count = 0
 
     def getPrime(self):
-        for i in range(self.start, self.end+1):
+        start = int(input('start 수를 입력하세요.'))
+        end = int(input('end 수를 입력하세요.'))
+        for i in range(start, end+1):
+            count = 0
             for j in range(2, i+1):
                 if i % j == 0:
-                    self.count += 1
-            if self.count == 1:
-                res = i
-        self.count = 0
-        # 배열에 넣어?????????
+                    count += 1
+            if count == 1:
+                print(i)
 
 class Quiz10LeapYear(object):
     def __init__(self, year):
@@ -156,18 +151,62 @@ class Quiz10LeapYear(object):
         return '윤년' if ((self.year % 4 == 0 and self.year % 100 != 0) or self.year % 400 == 0) else '평년'
 
 class Quiz11NumberGolf(object):
-    def __init__(self, name, money):
-        pass
+    @staticmethod
+    def numGame():
+        answer = myRandom(1, 100)
+        while 1:
+            user = int(input('값을 입력하세요.'))
+            if user < answer:
+                print('Up')
+            elif user > answer:
+                print('Down')
+            else:
+                return '정답 입니다.'
+
 
 class Quiz12Lotto(object):
-    def __init__(self):
-        pass
+    @staticmethod
+    def lotto():
+        a = random.sample(range(1, 46), 6)
+        a.sort()
+        return a
 
 class Quiz13Bank(object): # 이름, 입금, 출금만 구현
-    def __init__(self):
-        pass
+    def __init__(self, name):
+        self.name = name
+        self.money = 0
+
+    def bank(self):
+        while 1:
+            bankMenu = int(input('0.Exit 1.입금 2.출금 3.잔고 확인'))
+            if bankMenu == 0:
+                return
+            elif bankMenu == 1:
+                return self.add()
+            elif bankMenu == 2:
+                return self.sub()
+            elif bankMenu == 3:
+                return self.total()
+            else:
+                print('잘못된 번호 입니다.')
+
+    def add(self):
+        self.money += int(input('입금 금액: '))
+
+    def sub(self):
+        self.money -= int(input('출금 금액: '))
+
+    def total(self):
+        print( f'{self.name} 님의 잔고: {self.money} 원 입니다.')
 
 
-class Quiz14Gugudan(object): # 책받침구구단
-    def __init__(self):
-        pass
+
+class Quiz14Gugudan(object): # 책받침 구구단
+    @staticmethod
+    def gugudan():
+        for i in range(2, 10, 4):
+            for j in range(1, 10):
+                for k in range(i, i+4):
+                    print(f'{k} * {j} = {k*j}\t', end='')
+                print('\n', end='')
+            print('\n', end='')

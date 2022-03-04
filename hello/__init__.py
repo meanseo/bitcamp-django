@@ -1,6 +1,7 @@
 from hello.domains import Member
 from hello.models import Quiz01Calculator, Quiz02Bmi, Quiz03Grade, Quiz04GradeAuto, Quiz05dice, Quiz07RandomChoice, \
-    Quiz08Rps, Quiz09GetPrime, Quiz10LeapYear
+    Quiz08Rps, Quiz09GetPrime, Quiz10LeapYear, Quiz11NumberGolf, Quiz14Gugudan, Quiz12Lotto, Quiz13Bank
+from hello.quiz30 import Quiz30
 
 if __name__ == '__main__':
 
@@ -46,16 +47,31 @@ if __name__ == '__main__':
             print(q8.game())
 
         elif menu == '9':
-            q9 = Quiz09GetPrime(int(input('start: ')), int(input('end: '))) # 가위 1 바위 2 보 3
-            print(q9.getPrime())
-            pass
+            q9 = Quiz09GetPrime() # 가위 1 바위 2 보 3
+            q9.getPrime()
+
         elif menu == '10':
             q10 = Quiz10LeapYear(int(input('year: '))) # 가위 1 바위 2 보 3
             print(f'{q10.year}년은 {q10.getLeapYear()}')
-            pass
+
         elif menu == '11':
-            pass
+            q11 = Quiz11NumberGolf()
+            print(q11.numGame())
+
         elif menu == '12':
-            pass
+            q12 = Quiz12Lotto
+            print(f'{q12.lotto()}')
+
         elif menu == '13':
-            pass
+            q13 = Quiz13Bank(input('이름: '))
+            q13.bank()
+
+        elif menu == '14':
+            q14 = Quiz14Gugudan()
+            print(q14.gugudan())
+
+        elif menu == '30':
+            q30 = Quiz30()
+            q30.quiz30List()
+            q30.quiz30tuple()
+            q30.quiz30dict()
