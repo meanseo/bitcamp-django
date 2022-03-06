@@ -40,11 +40,11 @@ class Quiz10:
         while 1:
             user = myRandom(1, 100)
             if user < answer:
-                s = 'Up'
+                s = f'현재 숫자: {user} Up'
             elif user > answer:
-                s = 'Down'
+                s = f'현재 숫자: {user} Down'
             elif user == answer:
-                print('정답 입니다.')
+                print(f'정답:{user} -> 정답 입니다.')
                 return
             print(s)
 
