@@ -20,7 +20,6 @@ class Quiz00:
             s = self.div(a, b)
         elif res == '%':
             s = self.mod(a, b)
-
         print(f'{a} {res} {b} = {s}')
         return None
 
@@ -162,7 +161,7 @@ class Quiz00:
         return total - money
 
     @staticmethod
-    def quiz09gugudan():  # 책받침구구단
+    def quiz09gugudan():  # 책받침 구구단
         for i in range(2, 10, 4):
             for j in range(1, 10):
                 for k in range(i, i + 4):
@@ -173,9 +172,9 @@ class Quiz00:
 
 
 '''
-은행이름은 비트은행
-입금자 이름(name), 계좌번호(account_number), 금액(money) 속성값으로 계좌를 생성한다. --> 속성값을 설정하는 것이 첫번째
-계좌번호는 3자리-2자리-6자리 형태로 랜덤하게 생성된다.
+은행 이름은 비트 은행
+입금자 이름(name), 계좌번호(account_number), 금액(money) 속성 값으로 계좌를 생성한다. --> 속성 값을 설정하는 것이 첫번째
+계좌 번호는 3자리-2자리-6자리 형태로 랜덤하게 생성된다.
 예를 들면 123-12-123456 이다.
 금액은 100 ~ 999 사이로 랜덤하게 입금된다. (단위는 만 단위로 암묵적으로 판단한다.)
 '''
@@ -188,10 +187,10 @@ class Account(object):
         self.account_number = self.create_account_number() if account_number == None else account_number
 
     def to_string(self):
-        return f'은행 : {self.BANK_NAME} \n' \
-               f'입금자 : {self.name} 님 \n' \
-               f'계좌 번호 : {self.account_number} \n' \
-               f'금액: {self.money} 만원 \n'
+        return f'은행 : {self.BANK_NAME} ' \
+               f'입금자 : {self.name} 님 ' \
+               f'계좌 번호 : {self.account_number} ' \
+               f'금액: {self.money}만원'
 
     def create_account_number(self):
         '''
@@ -206,16 +205,37 @@ class Account(object):
         return ''.join(['-' if i == 3 or i == 6 else str(myRandom(0, 10)) for i in range(13)])
         # return ''.join([str(myRandom(0, 10)) if i != 3 and i != 6 else '-' for i in range(13)])
 
-    def del_account(self, ls, account_number):
+    @staticmethod
+    def find_account(ls, account_number):
+        # return ''.join(j.to_string() if j.account_number == account_number else '찾는 계좌 아님' for i, j in enumerate(ls))
+        for i, j in enumerate(ls):
+            if j.account_number == account_number:
+                return ls[i]
+
+    @staticmethod
+    def deposit(ls, account_number, deposit):
+        m = Account.find_account(ls, account_number)
+        m.money += deposit
+        return m
+
+    @staticmethod
+    def withdrawal(ls, account_number, withdrawal):
+        m = Account.find_account(ls, account_number)
+        m.money -= withdrawal
+        return m
+
+    @staticmethod
+    def del_account(ls, account_number):
         for i, j in enumerate(ls):
             if j.account_number == account_number:
                 del ls[i]
 
+
     @staticmethod
     def main():
         ls = []
-        while 1 :
-            menu = input('0.종료 1.계좌개설 2.계좌내용 3.입금 4.출금 5.계좌해지')
+        while 1:
+            menu = input('0.종료 1.계좌개설 2.계좌내용 3.입금 4.출금 5.계좌해지 6.계좌조회')
             if menu == '0':
                 break
             if menu == '1':
@@ -223,19 +243,23 @@ class Account(object):
                 print(f'{a.to_string()} ... 개설되었습니다.')
                 ls.append(a)
             elif menu == '2':
-                print('\n'.join([i.to_string() for i in ls]))
+                r = '\n'.join([i.to_string() for i in ls])
+                print(r)
             elif menu == '3':
-                account_number = input('입금할 계좌번호')
-                deposit = input('입금액')
-                for i , j in enumerate(ls):
-                    if j.account_number == account_number:
-                        pass
-
+                r = Account.deposit(ls, input('입금할 계좌번호'), int(input('입금액')))
+                print(r.to_string)
+                break
             elif menu == '4':
-                account_number = input('출금할 계좌번호')
-                money = input('출금액')
+                r = Account.withdrawal(ls, input('출금할 계좌번호'), int(input('출금액')))
+                print(r.to_string)
+                break
             elif menu == '5':
-                account_number = input('해지할 계좌번호')
+                Account.del_account(ls, input('해지할 계좌번호'))
+                break
+            elif menu == '6':
+                r = Account.find_account(ls, input('조회할 계좌번호'))
+                print(r.to_string())
+                break
             else:
                 print('Wrong Number.. Try Again')
                 continue
