@@ -156,20 +156,33 @@ class Quiz20:
 
     def quiz26map(self) -> str: return None
 
-    def quiz27melon(self) -> str:
+    def quiz27melon(self) -> {}:
         headers = {'User-Agent': 'Mozilla/5.0'}
         url = 'https://www.melon.com/chart/index.htm?dayTime=2022030816'
         req = urllib.request.Request(url, headers=headers)
         soup = BeautifulSoup(urlopen(req).read(), 'lxml')
+        ls1 = self.find_melon(soup, 'ellipsis rank01')
+        ls2 = self.find_melon(soup, 'ellipsis rank02')
+        dict = {}
+        for i, j in zip(ls1, ls2):
+            dict[i] = j
+        print(dict)
+        return dict
 
-        a = soup.find_all('div', {'class':'ellipsis rank01'})
-        print('\n'.join([i.get_text().strip() for i in a]))
+    @staticmethod
+    def find_melon(soup, cls_nm) -> []:
+        a = soup.find_all('div', {'class': cls_nm})
+        return [i.get_text() for i in a]
 
     def quiz28dataframe(self) -> None:
         # dict = self.quiz24zip()
         df = pd.DataFrame.from_dict(dict, orient='index')
         print(df)
         df.to_csv('./save/bugs.csv', sep=',', na_rep='NaN')
+
+        # dict2 = self.quiz27melon()
+        # df2 = pd.DataFrame.from_dict(dict2, orient='index')
+        # df2.to_csv('./save/melon.csv', sep=',', na_rep='NaN')
 
 
     def quiz29(self) -> str: return None
