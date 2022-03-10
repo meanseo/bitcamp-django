@@ -161,8 +161,8 @@ class Quiz20:
         url = 'https://www.melon.com/chart/index.htm?dayTime=2022030816'
         req = urllib.request.Request(url, headers=headers)
         soup = BeautifulSoup(urlopen(req).read(), 'lxml')
-        ls1 = self.find_melon(soup, 'ellipsis rank01')
-        ls2 = self.find_melon(soup, 'ellipsis rank02')
+        ls1 = self.find_melon(soup, 'div', 'ellipsis rank01')
+        ls2 = self.find_melon(soup, 'span', 'checkEllipsis')
         dict = {}
         for i, j in zip(ls1, ls2):
             dict[i] = j
@@ -170,19 +170,19 @@ class Quiz20:
         return dict
 
     @staticmethod
-    def find_melon(soup, cls_nm) -> []:
-        a = soup.find_all('div', {'class': cls_nm})
+    def find_melon(soup, tag, cls_nm) -> []:
+        a = soup.find_all(tag, {'class': cls_nm})
         return [i.get_text() for i in a]
 
     def quiz28dataframe(self) -> None:
         # dict = self.quiz24zip()
-        df = pd.DataFrame.from_dict(dict, orient='index')
-        print(df)
-        df.to_csv('./save/bugs.csv', sep=',', na_rep='NaN')
+        #df = pd.DataFrame.from_dict(dict, orient='index')
+        #print(df)
+        #df.to_csv('./save/bugs.csv', sep=',', na_rep='NaN')
 
-        # dict2 = self.quiz27melon()
-        # df2 = pd.DataFrame.from_dict(dict2, orient='index')
-        # df2.to_csv('./save/melon.csv', sep=',', na_rep='NaN')
+        dict2 = self.quiz27melon()
+        df2 = pd.DataFrame.from_dict(dict2, orient='index')
+        df2.to_csv('./save/melon.csv', sep=',', na_rep='NaN')
 
 
     def quiz29(self) -> str: return None
