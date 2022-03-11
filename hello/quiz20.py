@@ -2,6 +2,9 @@ import urllib.request
 from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import pandas as pd
+from domains import myRandom
+from quiz00 import Quiz00
+
 
 class Quiz20:
 
@@ -103,13 +106,16 @@ class Quiz20:
         # print(''.join(self.crawling(soup, input('태그명: '), input('구분: '))))
         ls1 = self.crawling(soup, 'p', 'title')
         ls2 = self.crawling(soup, 'p', 'artist')
+        dict = {i: j for i, j in zip(ls1, ls2)}
+        d1 = dict(zip(ls1, ls2))
+        l = [i+j for i, j in zip(ls1, ls2)]
+        l2 = list(zip(ls1, ls2))
+        print(dict)
+        print(d1)
         # self.dict1(ls1, ls2)
         # self.dict2(ls1, ls2)
-        dict = {}
-        for i, j in zip(ls1, ls2):
-            dict[i] = j
-        print(dict)
-        return dict
+
+
 
     @staticmethod
     def dict1(ls1, ls2) -> None:
@@ -123,6 +129,13 @@ class Quiz20:
         dict = {}
         for i, j in enumerate(ls1):
             dict[j] = ls2[i]
+        print(dict)
+
+    @staticmethod
+    def dict3(ls1, ls2) -> None:
+        dict = {}
+        for i, j in zip(ls1, ls2):
+            dict[i] = j
         print(dict)
 
     def print_music_list(self, soup) -> None:
@@ -152,7 +165,17 @@ class Quiz20:
         return s
         # return [i.get_text() for i in soup.find_all(tag, {'class': cls_nm})]
 
-    def quiz25dictcom(self) -> str: return None
+    @staticmethod
+    def quiz25dictcom() -> {}:
+        q = Quiz00()
+        scores = [myRandom(0, 101) for i in range(5)]
+        students = set([q.quiz06member_choice() for i in range(5)])
+        while len(students) < 5:
+            students.add(q.quiz06member_choice())
+        students_res = list(students)
+        dict = {i:j for i, j in zip(students_res, scores)}
+        print(dict)
+        return dict
 
     def quiz26map(self) -> str: return None
 
@@ -180,9 +203,47 @@ class Quiz20:
         #print(df)
         #df.to_csv('./save/bugs.csv', sep=',', na_rep='NaN')
 
-        dict2 = self.quiz27melon()
-        df2 = pd.DataFrame.from_dict(dict2, orient='index')
-        df2.to_csv('./save/melon.csv', sep=',', na_rep='NaN')
+        # dict2 = self.quiz27melon()
+        #df2 = pd.DataFrame.from_dict(dict2, orient='index')
+        #df2.to_csv('./save/melon.csv', sep=',', na_rep='NaN')
+
+        dict3 = self.quiz25dictcom()
+        df3 = pd.DataFrame.from_dict(dict3, orient='index')
+        df3.to_csv('./save/grade.csv', sep=',', na_rep='NaN')
+
+    '''
+    다음 결과 출력
+        a   b   c
+    1   1   3   5
+    2   2   4   6
+    '''
+    def quiz29_pandas_01(self) -> {}:
+        '''
+        l1 = [1, 3, 5]
+        l2 = [2, 4, 6]
+        d1 = {'a': l1[0], 'b': l1[1], 'c': l1[2]}
+        d2 = {'a': l2[0], 'b': l2[1], 'c': l2[2]}
+        df = pd.DataFrame.from_dict([d1])
+        df1 = pd.DataFrame.from_dict(d1, orient='index')
+        print(df)
+        print('#'*100)
+        '''
+
+        #d = {'1': [1, 3, 5], '2': [2, 4, 6]}
+        #df2 = pd.DataFrame.from_dict(d, orient='index', columns=['a', 'b', 'c'])
+
+        columns = [chr(i) for i in range(97, 100)]
+        a1 = []
+        a2 = []
+        c = [a1.append(i) if i % 2 == 1 else a2.append(i) for i in range(1, 7)]
+        e = ['1', '2']
+        f = [a1, a2]
+        d = {i: j for i, j in zip(e, f)}
+        df = pd.DataFrame.from_dict(d, orient='index', columns=columns)
+        print(df)
 
 
-    def quiz29(self) -> str: return None
+
+
+
+

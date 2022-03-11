@@ -1,8 +1,6 @@
 import random
-
-import domains
-
 from hello.models import myRandom
+
 
 
 class Quiz10:

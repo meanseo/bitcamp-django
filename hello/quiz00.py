@@ -57,7 +57,8 @@ class Quiz00:
         print(f'{this.name}님, {s} 입니다.')
         return None
 
-    def quiz02dice(self):
+    @staticmethod
+    def quiz02dice():
         return myRandom(1, 6)
 
     def quiz03rps(self):
@@ -121,15 +122,15 @@ class Quiz00:
             return 'F등급'
 
     @staticmethod
-    def quiz06memberChoice():
-        print(members()[myRandom(0, 23)])
+    def quiz06member_choice():
+        return members()[myRandom(0, 24)]
 
     @staticmethod
     def quiz07lotto():
-        a = random.sample(range(1, 46), 6)
+        a = random.sample(range(1, 47), 6)
         a.sort()
         print(a)
-        return None
+        return a
 
     def quiz08bank(self):  # 이름, 입금, 출금만 구현
         '''total = 0
