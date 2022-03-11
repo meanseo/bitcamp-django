@@ -217,7 +217,7 @@ class Quiz20:
     1   1   3   5
     2   2   4   6
     '''
-    def quiz29_pandas_01(self) -> {}:
+    def quiz29_pandas_01(self) -> object:
         '''
         l1 = [1, 3, 5]
         l2 = [2, 4, 6]
@@ -241,6 +241,7 @@ class Quiz20:
         d = {i: j for i, j in zip(e, f)}
         df = pd.DataFrame.from_dict(d, orient='index', columns=columns)
         print(df)
+        return df
 
 
 
