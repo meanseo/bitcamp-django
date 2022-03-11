@@ -235,16 +235,11 @@ class Quiz20:
         columns = [chr(i) for i in range(97, 100)]
         a1 = []
         a2 = []
-        c = [a1.append(i) if i % 2 == 1 else a2.append(i) for i in range(1, 7)]
+        [a1.append(i) if i % 2 == 1 else a2.append(i) for i in range(1, 7)]
+
         e = ['1', '2']
         f = [a1, a2]
         d = {i: j for i, j in zip(e, f)}
         df = pd.DataFrame.from_dict(d, orient='index', columns=columns)
         print(df)
         return df
-
-
-
-
-
-

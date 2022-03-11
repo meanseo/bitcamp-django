@@ -1,3 +1,6 @@
+import random
+import string
+
 import pandas as pd
 from icecream import ic
 
@@ -22,7 +25,6 @@ class Quiz30:
         # ls2 = [i for i in range(4, 7)]
         # ls3 = [i for i in range(7, 10)]
         # ls4 = [i for i in range(10, 13)]
-
         ic(df)
         return None
 
@@ -61,10 +63,12 @@ class Quiz30:
                         GOJKU  62  17  75  49
     '''
     def quiz32(self) -> str:
-        ls1 = [myRandom(0,101) for i in range(4)]
-        # chr = [chr(i) for i in range(97,123)]
-        name = [[chr(i) for i in range(97, 123)] for i in range(5)] # 97~123
-
+        score = [[myRandom(0, 101) for i in range(4)] for i in range(10)]
+        # a = ''.join([random.choice(string.ascii_letters) for i in range(5)])
+        member = [''.join([random.choice(string.ascii_letters) for i in range(5)]) for i in range(10)]
+        dict = {i: j for i, j in zip(member, score)}
+        df = pd.DataFrame.from_dict(dict, orient='index', columns=['국어', '영어', '수학', '사회'])
+        ic(df)
         return None
 
     def quiz33(self) -> str: return None
