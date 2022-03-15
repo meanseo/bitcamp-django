@@ -3,8 +3,8 @@ import string
 import numpy as np
 import pandas as pd
 from icecream import ic
-from hello.domains import myRandom, members
-from titanic.models import Model
+from hello.domains import members
+from context.models import Model
 
 
 class Quiz30:
@@ -80,59 +80,43 @@ class Quiz30:
     def get_id(chr_size) -> str: return ''.join([random.choice(string.ascii_letters) for i in range(chr_size)])
 
     @staticmethod
-    def quiz33_df_loc() -> object:
-        # d = [{i: j for i, j in zip(['a', 'b', 'c', 'd'], np.random.randint(0, 100, 4))} for _ in range(3)]
-        # d = [dict(zip(['a', 'b', 'c', 'd'], np.random.randint(0, 100, 4))) for _ in range(3)]
-        df1 = Quiz30.creatDf(keys=['a', 'b', 'c', 'd'],
-                          vals=np.random.randint(0, 100, 4),
-                          len=3)
-        # ic(df1)
+    def quiz33_df_loc() -> None:
         # https://pandas.pydata.org/docs/reference/api/pandas.DataFrame.loc.html
-        # grade.csv
-        model = Model()
-        grade_df = model.new_model('grade.csv')
-        ic(grade_df)
-
-        '''
-    자바  파이썬  자바스크립트  SQL
-홍정명  61   93      24   16
-노홍주  47   38      62   99
-전종현  93   89      12   49
-정경준  81   64       0   25
-양정오  83   62      82   34
-권혜민  67   82      47   35
-서성민  82   50      67   89
-조현국  56   23      38   38
-김한슬  88   11      61   64
-김진영  28   41      64   87
-심민혜   0   37      99   52
-권솔이  95   58      67   87
-김지혜  32   40      45   97
-하진희   8    0      90   34
-최은아  50    6      91   62
-최민서  85   48      50   12
-한성수  92   15      35   17
-김윤섭  63   55      26   95
-김승현   7   18       9   12
-강 민  24   40       5   47
-최건일  55   46      85   27
-유재혁  64    5      96   95
-김아름  37    6      90   82
-장원종  40   16      31   44
-        '''
 
         subj = ['자바', '파이썬', '자바스크립트', 'SQL']
         stud = members()
         score = np.random.randint(0, 100, (24, 4))
-        df = pd.DataFrame(score, index=stud, columns=subj)
-        ic(df)
-        return df
+        students_scores_df = pd.DataFrame(score, index=stud, columns=subj)
+        # grade.csv
+        model = Model()
+        model.save_model(fname='grade.csv', dframe=students_scores_df)
+        grade_df = model.new_model('grade.csv')
+        ic(grade_df)
+        print('파이썬의 점수만 출력하시오')
+        python_scores = grade_df.loc[:, '파이썬']
+        ic(type(python_scores))
+        ic(python_scores)
+        print('조현국의 점수만 출력하시오')
+        cho_score = grade_df.loc['조현국']
+        ic(type(cho_score))
+        ic(cho_score)
+        print('조현국의 과목별 점수를 출력하시오')
+        cho_subjects_scores = grade_df.loc[['조현국']]
+        ic(cho_subjects_scores)
+        ic(type(cho_subjects_scores))
 
     @staticmethod
     def creat_df(keys, vals, len) -> object:
         return pd.DataFrame([dict(zip(keys, vals)) for _ in range(len)])
 
     def quiz34_df_iloc(self) -> str:
+        # d = [{i: j for i, j in zip(['a', 'b', 'c', 'd'], np.random.randint(0, 100, 4))} for _ in range(3)]
+        # d = [dict(zip(['a', 'b', 'c', 'd'], np.random.randint(0, 100, 4))) for _ in range(3)]
+        df1 = self.creatDf(keys=['a', 'b', 'c', 'd'],
+                             vals=np.random.randint(0, 100, 4),
+                             len=3)
+        # ic(df1)
+
         # ic(df.iloc[0])
         '''
         ic| df.iloc[0]: a     0

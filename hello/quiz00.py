@@ -1,6 +1,6 @@
 import random
 
-from hello import Member
+from hello.domains import Member
 from hello.domains import my100, myRandom, members
 
 

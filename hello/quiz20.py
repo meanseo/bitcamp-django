@@ -3,7 +3,6 @@ from urllib.request import urlopen
 from bs4 import BeautifulSoup
 import pandas as pd
 from domains import myRandom
-from hello import Quiz30
 from quiz00 import Quiz00
 
 
@@ -199,24 +198,25 @@ class Quiz20:
         return [i.get_text() for i in a]
 
     def quiz28dataframe(self) -> None:
+
         # dict = self.quiz24zip()
-        #df = pd.DataFrame.from_dict(dict, orient='index')
-        #print(df)
-        #df.to_csv('./save/bugs.csv', sep=',', na_rep='NaN')
+        # df = pd.DataFrame.from_dict(dict, orient='index')
+        # print(df)
+        # df.to_csv('./save/bugs.csv', sep=',', na_rep='NaN')
 
         # dict2 = self.quiz27melon()
         #df2 = pd.DataFrame.from_dict(dict2, orient='index')
         #df2.to_csv('./save/melon.csv', sep=',', na_rep='NaN')
 
-        df3 = Quiz30.quiz33_df_loc()
-        df3.to_csv('./save/my_grade.csv', sep=',', na_rep='NaN')
+        # df3 = Quiz30.quiz33_df_loc()
+        # df3.to_csv('./save/my_grade.csv', sep=',', na_rep='NaN')
 
-    '''
-    다음 결과 출력
-        a   b   c
-    1   1   3   5
-    2   2   4   6
-    '''
+        '''
+        다음 결과 출력
+            a   b   c
+        1   1   3   5
+        2   2   4   6
+        '''
     def quiz29_pandas_01(self) -> object:
         '''
         l1 = [1, 3, 5]
