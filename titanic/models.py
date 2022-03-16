@@ -4,75 +4,91 @@ from context.models import Model
 
 
 class TitanicModel:
+    model = Model()
+    dataset = Dataset()
+
     def __init__(self, train_fname, test_fname):
-        self.model = Model()
-        self.dataset = Dataset()
         self.train = self.model.new_model(train_fname)
         self.test = self.model.new_model(test_fname)
         # id 추출
-        ic(f'트레인 컬럼 {self.train.columns}')
-        ic(f'트레인 헤드 {self.train.head()}')
-        ic(self.train)
-        ic(type(self.train))
 
     def preprocess(self):
-        self.fare_ratio_garbage()
-        self.cabin_ordinal_garbage()
-        self.parch_nominal_garbage()
-        self.ticket_ordinal_garbage()
-        self.sibSp_nominal_garbage()
-        self.name_nominal()
-        self.pclass_ordinal()
-        self.sex_nominal()
-        self.age_ratio()
-        self.embarked_nominal()
-        self.create_label()
-        self.create_train()
+        df = self.train
+        ic(f'트레인 컬럼 {df.columns}')
+        ic(f'트레인 헤드 {df.head()}')
+        ic(df)
+        ic(type(df))
+        df = self.drop_feature(df)
+        df = self.name_nominal(df)
+        df = self.pclass_ordinal(df)
+        df = self.sex_nominal(df)
+        df = self.age_ratio(df)
+        df = self.embarked_nominal(df)
+        df = self.create_label(df)
+        df = self.create_train(df)
+        return df
 
-    def create_label(self) -> object:
-        pass
+    @staticmethod
+    def create_label(df) -> object:
+        return df
 
-    def create_train(self) -> object:
-        pass
+    @staticmethod
+    def create_train(df) -> object:
+        return df
 
-    def drop_feature(self) -> object:
-        pass
+    def drop_feature(self, df) -> object:
+
+        '''
+        self.sibSp_nominal_garbage(df)
+        self.parch_nominal_garbage(df)
+        self.ticket_ordinal_garbage(df)
+        self.fare_ratio_garbage(df)
+        self.cabin_ordinal_garbage(df)
+        '''
+        return df
 
     '''
     Categorical vs Quantitative -> 구간의 유무
     Cate -> nominal (이름) vs ordinal (순서)
     Quan -> interval (상대적) vs ratio (절대적)
     '''
-    def pclass_ordinal(self) -> object:
-        pass
 
-    def name_nominal(self) -> object:
-        pass
+    @staticmethod
+    def pclass_ordinal(df) -> object:
+        return df
 
-    def sex_nominal(self) -> object:
-        pass
+    @staticmethod
+    def name_nominal(df) -> object:
+        return df
 
-    def age_ratio(self) -> object:
-        pass
+    @staticmethod
+    def sex_nominal(df) -> object:
+        return df
 
-    def sibSp_nominal_garbage(self) -> object:
-        self.drop_feature()
+    @staticmethod
+    def age_ratio(df) -> object:
+        return df
 
-    def parch_nominal_garbage(self) -> object:
-        self.drop_feature()
+    @staticmethod
+    def sibSp_nominal_garbage(df) -> object:
+        return df
 
-    def ticket_ordinal_garbage(self) -> object:
-        self.drop_feature()
+    @staticmethod
+    def parch_nominal_garbage(df) -> object:
+        return df
 
-    def fare_ratio_garbage(self) -> object:
-        self.drop_feature()
+    @staticmethod
+    def ticket_ordinal_garbage(df) -> object:
+        return df
 
-    def cabin_ordinal_garbage(self) -> object:
-        self.drop_feature()
+    @staticmethod
+    def fare_ratio_garbage(df) -> object:
+        return df
 
-    def embarked_nominal(self) -> object:
-        pass
+    @staticmethod
+    def cabin_ordinal_garbage(df) -> object:
+        return df
 
-
-
-
+    @staticmethod
+    def embarked_nominal(df) -> object:
+        return df
