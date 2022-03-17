@@ -7,88 +7,80 @@ class TitanicModel:
     model = Model()
     dataset = Dataset()
 
-    def __init__(self, train_fname, test_fname):
-        self.train = self.model.new_model(train_fname)
-        self.test = self.model.new_model(test_fname)
-        # id 추출
-
-    def preprocess(self):
-        df = self.train
-        ic(f'트레인 컬럼 {df.columns}')
-        ic(f'트레인 헤드 {df.head()}')
-        ic(df)
-        ic(type(df))
-        df = self.drop_feature(df)
-        df = self.name_nominal(df)
-        df = self.pclass_ordinal(df)
-        df = self.sex_nominal(df)
-        df = self.age_ratio(df)
-        df = self.embarked_nominal(df)
-        df = self.create_label(df)
-        df = self.create_train(df)
-        return df
+    def preprocess(self, train_fname, test_fname):
+        this = self.dataset
+        that = self.model
+        this.train = that.new_dframe(train_fname)
+        this.test = that.new_dframe(test_fname)
+        this.id = this.test['PassengerId']
+        this.label = this.train['Survived']
+        this.train = this.train.drop('Survived', axis=1)
+        this = self.drop_feature(this, 'SibSp', 'Parch', 'Cabin', 'Ticket')
+        '''
+        this = self.name_nominal(this)
+        this = self.pclass_ordinal(this)
+        this = self.sex_nominal(this)
+        this = self.age_ratio(this)
+        this = self.embarked_nominal(this)
+        this = self.create_train(this)
+        '''
+        self.print_this(this)
+        return this
 
     @staticmethod
-    def create_label(df) -> object:
-        return df
+    def print_this(this):
+        print('*'*100)
+        ic(f'1. Train 의 타입 : {type(this.train)}\n')
+        ic(f'2. Train 의 칼럼 : {this.train.columns}\n')
+        ic(f'3. Train 의 상위 1개 : {this.train.head(1)}\n')
+        ic(f'4. Train 의 null의 개수 : {this.train.isnull().sum()}\n')
+        ic(f'5. Test 의 타입 {type(this.test)}\n')
+        ic(f'6. Test 의 칼럼 {this.test.columns}\n')
+        ic(f'7. Test 의 상위 1개 {this.test.head(1)}\n')
+        ic(f'8. Test 의 null의 개수 {this.test.isnull().sum()}\n')
+        ic(f'8. id 의 타입 {type(this.id)}\n')
+        ic(f'8. id 의 상위 10개 {this.id[:10]}\n')
+        print('*' * 100)
 
     @staticmethod
-    def create_train(df) -> object:
-        return df
+    def create_train(this) -> object:
+        return this
 
-    def drop_feature(self, df) -> object:
+    @staticmethod
+    def drop_feature(this, *feature) -> object:
+        # this.train = this.train.drop([i for i in feature], axis=1)
+        # this.test = this.test.drop([i for i in feature], axis=1)
+        # for i in [this.train, this.test]:
+            #i.drop([j for j in feature])
+        # [j.drop(i, axis=1, inplace=True) for i in feature for j in [this.train, this.test]]
 
-        '''
-        self.sibSp_nominal_garbage(df)
-        self.parch_nominal_garbage(df)
-        self.ticket_ordinal_garbage(df)
-        self.fare_ratio_garbage(df)
-        self.cabin_ordinal_garbage(df)
-        '''
-        return df
-
+        [i.drop(list(feature), axis=1, inplace=True) for i in [this.train, this.test]]
+        return this
     '''
     Categorical vs Quantitative -> 구간의 유무
     Cate -> nominal (이름) vs ordinal (순서)
     Quan -> interval (상대적) vs ratio (절대적)
     '''
+    @staticmethod
+    def fare_ratio_garbage(this) -> object:
+        return this
 
     @staticmethod
-    def pclass_ordinal(df) -> object:
-        return df
+    def pclass_ordinal(this) -> object:
+        return this
 
     @staticmethod
-    def name_nominal(df) -> object:
-        return df
+    def name_nominal(this) -> object:
+        return this
 
     @staticmethod
-    def sex_nominal(df) -> object:
-        return df
+    def sex_nominal(this) -> object:
+        return this
 
     @staticmethod
-    def age_ratio(df) -> object:
-        return df
+    def age_ratio(this) -> object:
+        return this
 
     @staticmethod
-    def sibSp_nominal_garbage(df) -> object:
-        return df
-
-    @staticmethod
-    def parch_nominal_garbage(df) -> object:
-        return df
-
-    @staticmethod
-    def ticket_ordinal_garbage(df) -> object:
-        return df
-
-    @staticmethod
-    def fare_ratio_garbage(df) -> object:
-        return df
-
-    @staticmethod
-    def cabin_ordinal_garbage(df) -> object:
-        return df
-
-    @staticmethod
-    def embarked_nominal(df) -> object:
-        return df
+    def embarked_nominal(this) -> object:
+        return this
